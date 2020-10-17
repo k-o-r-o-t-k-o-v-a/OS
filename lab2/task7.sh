@@ -1,14 +1,14 @@
 #!/bin/bash
 (for i in $(ls /proc | grep "[0-9]")
 do
-awk '$1 == "rchar" {print "%d ", $2}' /proc/$i/io >> term1.info
+awk '$1 == "rchar:" {print "%d ", $2}' /proc/$i/io >> term1.info
 cmd=$(ps -e -o pid,cmd | awk -v id=$i '$1 == id {print $2}')
 echo $i $cmd >> term1.info
 done
 sleep 60
 for i in $(ls /proc | grep "[0-9]")
 do
-awk '$1 == "rchar" {print "%d ", $2}' /proc/$i/io >> term2.info
+awk '$1 == "rchar:" {print "%d ", $2}' /proc/$i/io >> term2.info
 echo $i >> term2.info
 done
 while read str
@@ -20,3 +20,4 @@ done < term2.info
 sort -n -k 8 | tail -n 3 | sort -n -k 8
 rm *.info
 ) 2> /dev/null
+если нужно посмотреть сколько байт считано за 60 секунд замените rchar: на read_bytes:
