@@ -16,7 +16,7 @@ ART_sum=0
 echo "-Average_Sleeping_Children_Of_ParentID=$ppid is $average_ART" >> out5.txt
 ppid=$new_ppid
 fi
-echo $line >> files/5file
+echo $line >> out5.txt
 ART=$(echo $line | awk -F" : " '{print $NF}' | awk -F= '{print $NF}')
 ART_sum=$(echo "scale=4; $ART_sum+$ART" | bc)
 done < ou4.txt
